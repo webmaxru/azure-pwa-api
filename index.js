@@ -116,14 +116,14 @@ function sendNotification(pushSubscription, payload) {
 }
 
 app.post('/push-hook', function(req, res, next) {
-  if (req.body.message && req.body.title) {
-    logger.info('The data was received from hook', req.body.message);
+  if (req.body.message && req.body.eventType) {
+    logger.info('The data was received from hook', req.body);
 
     // https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerRegistration/showNotification
     var notificationData = {};
     notificationData.notification = {
-      title: req.body.title,
-      body: req.body.message,
+      title: req.body.eventType,
+      body: req.body.message.text,
       dir: 'auto',
       renotify: true,
       requireInteraction: true,
